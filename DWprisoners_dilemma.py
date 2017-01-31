@@ -116,6 +116,7 @@ def get_action(player, history, opponent_history, score, opponent_score, getting
     ######
     ######
     #
+<<<<<<< HEAD
     # This example player always colludes
     if player == 0:
         if getting_team_name:
@@ -124,6 +125,49 @@ def get_action(player, history, opponent_history, score, opponent_score, getting
             return 'c'
 
     
+=======
+    # This nonexample player nearly always colludes... right?
+    if player == 0:
+        global KNTHScoreLIST
+        if not 'KNTHMoveLIST' in globals():
+            global KNTHMoveLIST
+            KNTHMoveLIST = ''
+            KNTHScoreLIST = [0]
+            KNTHBScores = [0]
+            KNTHCScores = [0]
+        if getting_team_name:
+            return 'KNTH!!'
+               
+        else:
+            if len(history) == 0: #if it's the first round, collude since I'm hoepful
+                KNTHMoveLIST += 'c'
+                return 'c'
+            else:
+              KNTHScoreLIST += [score-sum(KNTHScoreLIST)]
+              KNTHBScores = [KNTHScoreLIST[i] if KNTHMoveLIST[i] == 'b' else 0 for i in range(len(history))]
+              KNTHCScores = [KNTHScoreLIST[i] for i in range(len(history)) if KNTHMoveLIST[i] == 'c']
+              KNTHBAverage = sum(KNTHBScores)/len(KNTHBScores)
+              KNTHCAverage = sum(KNTHCScores)/len(KNTHCScores)
+              if len(history) ==  1:# if it's the second round, betray... I've got a bad feeling about this...
+                KNTHMoveLIST += 'b'
+                return 'b'
+              elif KNTHCAverage > KNTHBAverage:
+                KNTHMoveLIST += 'c'
+                return 'c'
+              elif opponent_score < -300: #otherwise if the opponent is doing pretty badly collude, we should work together
+                  KNTHMoveLIST += 'c'
+                  return 'c'
+              elif opponent_score < score:#same reasoning
+                  #print('My opponent is losin\'!!')
+                  KNTHMoveLIST += 'c'
+                  return 'c'
+              else: #if nothing else is true, then betray, at least the other person will feel worse
+                  #print('My opponent is winning!!')
+                  KNTHMoveLIST += 'b'
+                  return 'b'
+
+
+>>>>>>> origin/master
         
             
                 
@@ -135,9 +179,21 @@ def get_action(player, history, opponent_history, score, opponent_score, getting
     #This example player always betrays.      
     elif player == 1:
         if getting_team_name:
+<<<<<<< HEAD
             return 'backstabber'
         else:
             return 'b'
+=======
+            return 'Marco and Max'
+        else:
+	   if len(history) > 2:
+		if opponent_history[-1] == 'c' and opponent_history[-2] == 'c' and opponent_history[-3] == 'c':
+		  return 'c'
+		else:
+		  return 'b'
+	   else:
+	       return 'b'
+>>>>>>> origin/master
 
 
 
@@ -148,18 +204,26 @@ def get_action(player, history, opponent_history, score, opponent_score, getting
 
     ######
     ######
+<<<<<<< HEAD
     #   
+=======
+>>>>>>> origin/master
     #This example player is silent at first and then 
     #only betrays if they were a sucker last round.
     elif player == 2:
         if getting_team_name:
+<<<<<<< HEAD
             return 'loyal vengeful'
+=======
+            return 'Ping and Caden'
+>>>>>>> origin/master
         else:
             if len(opponent_history)==0: #It's the first round: collude
                 return 'c'
             elif history[-1]=='c' and opponent_history[-1]=='b':
                 return 'b' # betray if they were severely punished last time
             else:
+<<<<<<< HEAD
                 return 'c' #otherwise collude
 
 
@@ -174,6 +238,9 @@ def get_action(player, history, opponent_history, score, opponent_score, getting
 
 
 
+=======
+             	return 'c' #otherwise collude
+>>>>>>> origin/master
 
 
 
@@ -183,6 +250,7 @@ def get_action(player, history, opponent_history, score, opponent_score, getting
     #
     elif player == 3:
         if getting_team_name:
+<<<<<<< HEAD
             return 'backstabber'
         else:
             # use history, opponent_history, score, opponent_score
@@ -193,6 +261,14 @@ def get_action(player, history, opponent_history, score, opponent_score, getting
                 return 'b' # betray is they were severely punished last time
             else:
                 return 'c' #otherwise collude
+=======
+            return 'Ping and Caden'
+        else:
+            if len(opponent_history)<5: # Collude for first 5 rounds
+                return 'c'
+            else:
+                return opponent_history[-1] # Do whatever opponet did last round
+>>>>>>> origin/master
 
 
 
@@ -209,6 +285,7 @@ def get_action(player, history, opponent_history, score, opponent_score, getting
     #
     elif player == 4:
         if getting_team_name:
+<<<<<<< HEAD
             return 'loyal vengeful with permanent second impression'
         else:
             # use history, opponent_history, score, opponent_score
@@ -218,6 +295,17 @@ def get_action(player, history, opponent_history, score, opponent_score, getting
                 return 'c'
             else:
                 return 'b'
+=======
+            return 'Marco and Max'
+        else:
+	   if len(history) > 2:
+		if opponent_history[-1] == 'c' and opponent_history[-2] == 'c' and opponent_history[-3] == 'c':
+		  return 'c'
+		else:
+		  return 'b'
+	   else:
+	       return 'b'
+>>>>>>> origin/master
     
     
     
@@ -232,6 +320,7 @@ def get_action(player, history, opponent_history, score, opponent_score, getting
     ######
     ######        
     #
+<<<<<<< HEAD
     elif player == 5:
         if getting_team_name:
             return 'backstabber'
@@ -247,6 +336,30 @@ def get_action(player, history, opponent_history, score, opponent_score, getting
     
     
     
+=======
+
+    elif player == 5:
+        if getting_team_name:
+            return 'Liam?'
+        else:
+            if len(opponent_history)==0:
+                return 'c'
+            else:
+                recent_round_opponent = opponent_history[-1]
+                recent_round_me = history[-1]
+                for round in range(len(history)-1):
+                    prior_round_opponent = opponent_history[round]
+                    prior_round_me = history[round]
+                    #if one matches
+                    if (prior_round_me == recent_round_me) and \
+                            (prior_round_opponent == recent_round_opponent):
+                        return opponent_history[round]
+                if history[-1]=='c' and opponent_history[-1]=='b':
+                    return 'b' # betray is they were severely punished last time
+                else:
+                    return 'c' #otherwise collude 
+  
+>>>>>>> origin/master
     
 
 
@@ -258,16 +371,28 @@ def get_action(player, history, opponent_history, score, opponent_score, getting
     #
     elif player == 6:
         if getting_team_name:
+<<<<<<< HEAD
             return 'backstabber'
+=======
+            return 'Dat1AZNBanana'
+>>>>>>> origin/master
         else:
             # use history, opponent_history, score, opponent_score
             # to compute your strategy
             if len(opponent_history)==0: #It's the first round: collude
+<<<<<<< HEAD
                 return 'c'
             elif history[-1]=='c' and opponent_history[-1]=='b':
                 return 'b' # betray is they were severely punished last time
             else:
                 return 'c' #otherwise collude
+=======
+                return 'b'
+            elif history[-1]=='c' and opponent_history[-1]=='b':
+                return 'b' # betray is they were severely punished last time
+            else:
+                return 'b' #otherwise collude
+>>>>>>> origin/master
     
 
 
@@ -284,7 +409,11 @@ def get_action(player, history, opponent_history, score, opponent_score, getting
     #
     elif player == 7:
         if getting_team_name:
+<<<<<<< HEAD
             return 'loyal vengeful'
+=======
+            return 'AhnafC'
+>>>>>>> origin/master
         else:
             # use history, opponent_history, score, opponent_score
             # to compute your strategy
@@ -311,7 +440,11 @@ def get_action(player, history, opponent_history, score, opponent_score, getting
     elif player == 8:
         if getting_team_name:
             #if there was a previous round just like 
+<<<<<<< HEAD
             return 'loyal vengeful with permanent second impression'
+=======
+            return 'Mitchell'
+>>>>>>> origin/master
         else:
             # use history, opponent_history, score, opponent_score
             # to compute your strategy      
@@ -353,6 +486,7 @@ def get_action(player, history, opponent_history, score, opponent_score, getting
     #
     elif player == 9:
         if getting_team_name:
+<<<<<<< HEAD
             return 'loyal vengeful'
         else:
             # use history, opponent_history, score, opponent_score
@@ -363,6 +497,17 @@ def get_action(player, history, opponent_history, score, opponent_score, getting
                 return 'b' # betray is they were severely punished last time
             else:
                 return 'c' #otherwise collude
+=======
+            return 'Juichi and Willow'
+        else:
+            if len(opponent_history)==0:
+                return 'c'
+            elif history[-1]=='c' and opponent_history[-1]=='b':
+                return 'b'
+            else:
+                return 'c'
+
+>>>>>>> origin/master
 
 
 
@@ -402,6 +547,7 @@ def get_action(player, history, opponent_history, score, opponent_score, getting
     #
     elif player == 11:
         if getting_team_name:
+<<<<<<< HEAD
             return 'loyal vengeful'
         else:
             # use history, opponent_history, score, opponent_score
@@ -412,6 +558,11 @@ def get_action(player, history, opponent_history, score, opponent_score, getting
                 return 'b' # betray is they were severely punished last time
             else:
                 return 'c' #otherwise collude
+=======
+            return 'CJ'
+        else:
+            return 'b'
+>>>>>>> origin/master
 
 
 
@@ -446,7 +597,11 @@ def get_action(player, history, opponent_history, score, opponent_score, getting
     #
     elif player == 13:
         if getting_team_name:
+<<<<<<< HEAD
             return 'loyal vengeful'
+=======
+            return 'Bryson'
+>>>>>>> origin/master
         else:
             if len(opponent_history)==0: #It's the first round: collude
                 return 'c'
@@ -468,7 +623,11 @@ def get_action(player, history, opponent_history, score, opponent_score, getting
     #
     elif player == 14:
         if getting_team_name:
+<<<<<<< HEAD
             return 'loyal vengeful occasionally greedy'
+=======
+            return 'DK! Dillon Kong!'
+>>>>>>> origin/master
         else:
             if len(opponent_history)==0: #It's the first round: collude
                 return 'c'
@@ -491,7 +650,11 @@ def get_action(player, history, opponent_history, score, opponent_score, getting
     #
     elif player == 15:
         if getting_team_name:
+<<<<<<< HEAD
             return 'loyal vengeful'
+=======
+            return 'Juichi'
+>>>>>>> origin/master
         else:
             if len(opponent_history)==0: #It's the first round: collude
                 return 'c'
@@ -513,6 +676,7 @@ def get_action(player, history, opponent_history, score, opponent_score, getting
     #
     elif player == 16:
         if getting_team_name:
+<<<<<<< HEAD
             return 'loyal vengeful'
         else:
             if len(opponent_history)==0: #It's the first round: collude
@@ -521,6 +685,31 @@ def get_action(player, history, opponent_history, score, opponent_score, getting
                 return 'b' # betray is they were severely punished last time
             else:
                 return 'c' #otherwise collude
+=======
+            return 'nick hills bad bot'
+        else:
+            if len(opponent_history)==0: #opener
+                if random.random() <= 0.5:
+                    return 'c'
+                else:
+                    return 'b'
+            
+            else:
+                prev_betrays = 0;
+                for i in range(1,len(opponent_history)): #count previous betrayals
+                    if opponent_history[i] == 'b':
+                        prev_betrays = prev_betrays + 1
+                
+                betray_chance = prev_betrays / len(opponent_history) #calculate chance of the next choice being a betrayal
+                
+                if opponent_history[-1] == 'b': #if last opponent choice was betray, add 75% to betray chance
+                    betray_chance = betray_chance + 0.75
+                
+                if random.random() <= betray_chance: #if float lands in betray chance range, betray
+                    return 'b'
+                else: #collude by default
+                    return 'c'
+>>>>>>> origin/master
     
     
 
@@ -535,7 +724,11 @@ def get_action(player, history, opponent_history, score, opponent_score, getting
     #
     elif player == 17:
         if getting_team_name:
+<<<<<<< HEAD
             return 'loyal vengeful'
+=======
+            return 'Ryo Takei'
+>>>>>>> origin/master
         else:
             if len(opponent_history)==0: #It's the first round: collude
                 return 'c'
@@ -565,8 +758,14 @@ def get_action(player, history, opponent_history, score, opponent_score, getting
                 return 'b' # betray is they were severely punished last time
             else:
                 return 'c' #otherwise collude
-    
-    
+
+elif player == 21:
+    if getting_team_name:
+        return 'Rafa'
+        else:
+            return 'b'
+
+
 
 
 
@@ -577,16 +776,32 @@ def get_action(player, history, opponent_history, score, opponent_score, getting
     ######
     ######
     #
+<<<<<<< HEAD
     elif player == 19:
         if getting_team_name:
             return 'loyal vengeful'
+=======
+ elif player == 19:
+        if getting_team_name:
+            return 'Ben'
+>>>>>>> origin/master
         else:
             if len(opponent_history)==0: #It's the first round: collude
                 return 'c'
             elif history[-1]=='c' and opponent_history[-1]=='b':
                 return 'b' # betray is they were severely punished last time
+<<<<<<< HEAD
             else:
                 return 'c' #otherwise collude
+=======
+            elif history[-1]=='b' and opponent_history[-1]=='b':
+                return 'c' # collude if they were punished last time
+            elif history[-1]=='b' and opponent_history[-1]=='c':
+                return 'c' # collude if they were set free
+            else:
+                return 'c' #otherwise collude
+
+>>>>>>> origin/master
             
     elif player == 20:
         if getting_team_name:
@@ -597,7 +812,12 @@ def get_action(player, history, opponent_history, score, opponent_score, getting
             elif history[-1]=='c' and opponent_history[-1]=='b':
                 return 'b' # betray is they were severely punished last time
             else:
-                return 'c' #otherwise collude            
+                return 'c' #otherwise collude
+
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
     
     
 
